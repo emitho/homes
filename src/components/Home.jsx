@@ -15,9 +15,12 @@ import BusinessIcon from '@mui/icons-material/Business';
 import VolumeOffIcon from '@mui/icons-material/VolumeOff';
 import { green } from '@mui/material/colors';
 
+
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import { Parallax } from 'react-parallax';
+
+import ScrollProgressBar from 'react-scroll-progress-bar';
 
 const Background = styled('div')({
   position: 'absolute',
@@ -41,6 +44,11 @@ const StyledParallax = styled(Parallax)({
   position: 'relative',
   height: '90vh',
 });
+
+const fadeIn = {
+  hidden: { opacity: 0 },
+  show: { opacity: 1, transition: { duration: 0.5 } },
+};
 
 const Banner = styled(Box)(({ theme }) => ({
   position: 'relative',
@@ -144,6 +152,7 @@ const Home = () => {
 
   return (
     <div>
+      <ScrollProgressBar height="5px" bgColor="#5cb85c" duration="1" />
       <StyledParallax
         blur={0}
         bgImage={'https://images.unsplash.com/photo-1565625443865-2c41cdb647d2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2670&q=80'}
@@ -189,7 +198,7 @@ const Home = () => {
       
       <Container maxWidth="md" sx={{ my: 5 }}>
         <Typography variant="h4" component="h1" align="center" gutterBottom>
-          Our Profile
+          Years of Experience in Management
         </Typography>
         <Typography variant="h6" component="p" align="center" color="text.secondary" paragraph>
           We have been hosting on Airbnb for several years with great reviews and feedback from our guests.
