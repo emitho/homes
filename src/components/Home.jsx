@@ -9,11 +9,11 @@ import HistoryIcon from '@mui/icons-material/History';
 import NoMeetingRoomIcon from '@mui/icons-material/NoMeetingRoom';
 import CleanHandsIcon from '@mui/icons-material/CleanHands';
 import TimerIcon from '@mui/icons-material/Timer';
-import HomeIcon from '@mui/icons-material/Home';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import BusinessIcon from '@mui/icons-material/Business';
 import VolumeOffIcon from '@mui/icons-material/VolumeOff';
 import { green } from '@mui/material/colors';
+
 
 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -45,6 +45,10 @@ const StyledParallax = styled(Parallax)({
   height: '90vh',
 });
 
+const BitcoinIcon = (props) => (
+  <img src="https://logodownload.org/wp-content/uploads/2017/06/bitcoin-logo-7-1.png" alt="Bitcoin Icon" {...props} />
+);
+
 const fadeIn = {
   hidden: { opacity: 0 },
   show: { opacity: 1, transition: { duration: 0.5 } },
@@ -67,32 +71,37 @@ const Banner = styled(Box)(({ theme }) => ({
 const serviceList = [
   {
     title: "No Vacancies",
-    description: "Say goodbye to vacancies with our long-term lease commitment.",
+    description: "We're the last tenant you will ever need. 3-5 year lease with possibility of renewal.",
     icon: <NoMeetingRoomIcon fontSize="large" sx={{ color: green[500] }} />,
   },
   {
     title: "Property Upkeep",
-    description: "Premium upkeep of your property – pristine conditions, always.",
+    description: "Professional, regular cleaning & maintenance included  – Pristine condition always.",
     icon: <CleanHandsIcon fontSize="large" sx={{ color: green[500] }} />,
   },
   {
     title: "Timely Payments",
-    description: "Steady, timely rent payments - financial stability you can bank on.",
+    description: "Steady, timely rent payments - No chasing down tenants for rent money.",
     icon: <TimerIcon fontSize="large" sx={{ color: green[500] }} />,
   },
   {
-    title: "Above Market Rates",
-    description: "We value your property; expect premiums above market rates.",
-    icon: <AttachMoneyIcon fontSize="large" sx={{ color: green[500] }} />,
+    title: "Fair Pay",
+    description: "We pay competively to market rates and pay in hard currency. No low-balling, no inflation headache.",
+    icon: (
+      <Box display='flex' alignItems='center' justifyContent='center'>
+        <AttachMoneyIcon fontSize="large" sx={{ color: green[500] }} />
+        <BitcoinIcon width='21px' />
+      </Box>
+    ),
   },
   {
     title: "Single Entity",
-    description: "Less hassle, more peace - one professional entity for your multiple units.",
+    description: "One professional entity for your multiple units – Eliminates complexity.",
     icon: <BusinessIcon fontSize="large" sx={{ color: green[500] }} />,
   },
   {
-    title: "Tranquility",
-    description: "Absolute tranquility guaranteed – Zero tolerance for noise and parties.",
+    title: "Zero Noise Guarantee",
+    description: "No neighboor complains – Zero tolerance for noise and parties.",
     icon: <VolumeOffIcon fontSize="large" sx={{ color: green[500] }} />,
   },
 ];
@@ -196,9 +205,41 @@ const Home = () => {
       </StyledParallax>
             
       
+      
       <Container maxWidth="md" sx={{ my: 5 }}>
         <Typography variant="h4" component="h1" align="center" gutterBottom>
-          Years of Experience in Management
+          What we offer:
+        </Typography>
+        <Typography variant="h6" component="p" align="center" color="text.secondary" paragraph>
+          Our business model is to literally solve all common problems you face as a property owner.
+        </Typography>
+        <Grid container spacing={3}>
+          {serviceList.map((service, index) => (
+            <Grid item xs={12} sm={4} key={index}>
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <Card sx={{ minWidth: 275, height: '100%', cursor: 'default', userSelect: 'none' }}>
+                  
+                  <CardContent>
+                  <Box display = 'flex' flexDirection = 'column' justifyContent = 'center' alignItems = 'center' >
+                    {service.icon}
+                    <Typography variant="h5" component="div" gutterBottom>
+                      {service.title}
+                    </Typography>
+                    <Typography align = 'center' variant="body2" color="text.secondary">
+                      {service.description}
+                    </Typography>
+                    <Button variant="contained" sx={{ mx: 2, my: 2 }}>Learn More</Button>
+                    </Box>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            </Grid>
+          ))}
+        </Grid>
+      </Container>
+      <Container maxWidth="md" sx={{ my: 5 }}>
+        <Typography variant="h4" component="h1" align="center" gutterBottom>
+          Years of Experience
         </Typography>
         <Typography variant="h6" component="p" align="center" color="text.secondary" paragraph>
           We have been hosting on Airbnb for several years with great reviews and feedback from our guests.
@@ -207,7 +248,9 @@ const Home = () => {
           <Grid item xs={12} sm={4}>
             <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
               <Card sx={{ minWidth: 275, cursor: 'default', userSelect: 'none' }}>
+                
                 <CardContent>
+                <Box display='flex' flexDirection='column' justifyContent='center' alignItems='center' gap='2vh'>
                   <CommentIcon fontSize="large" sx={{ color: green[500] }} />
                   <Typography variant="h5" component="div">
                     116
@@ -215,6 +258,7 @@ const Home = () => {
                   <Typography sx={{ mb: 1.5 }} color="text.secondary">
                     Reviews
                   </Typography>
+                  </Box>
                 </CardContent>
               </Card>
             </motion.div>
@@ -224,13 +268,17 @@ const Home = () => {
             <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
               <Card sx={{ minWidth: 275, cursor: 'default', userSelect: 'none' }}>
                 <CardContent>
-                  <StarIcon fontSize="large" sx={{ color: green[500] }} />
+                <Box display='flex' flexDirection='row' justifyContent='center' marginBottom='2vh'>
+                  <StarIcon fontSize="large" sx={{ color: green[500] }} /> <StarIcon fontSize="large" sx={{ color: green[500] }} /><StarIcon fontSize="large" sx={{ color: green[500] }} /><StarIcon fontSize="large" sx={{ color: green[500] }} /><StarIcon fontSize="large" sx={{ color: green[500] }} />
+                  </Box>
+                  <Box display='flex' flexDirection='column' justifyContent='center' alignItems='center' gap='2vh'>
                   <Typography variant="h5" component="div">
-                    4.7
+                  5/5 Star Rating
                   </Typography>
                   <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                    Average Rating
+                    Top-rated by 95% of guests
                   </Typography>
+                  </Box>
                 </CardContent>
               </Card>
             </motion.div>
@@ -240,45 +288,19 @@ const Home = () => {
             <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
               <Card sx={{ minWidth: 275, cursor: 'default', userSelect: 'none' }}>
                 <CardContent>
+                  <Box display='flex' flexDirection='column' justifyContent='center' alignItems='center' gap='2vh'>
                   <HistoryIcon fontSize="large" sx={{ color: green[500] }} />
                   <Typography variant="h5" component="div">
-                    7
+                    7 Years
                   </Typography>
                   <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                    Years on Airbnb
+                    on Airbnb
                   </Typography>
+                  </Box>
                 </CardContent>
               </Card>
             </motion.div>
           </Grid>
-        </Grid>
-      </Container>
-      <Container maxWidth="md" sx={{ my: 5 }}>
-        <Typography variant="h4" component="h1" align="center" gutterBottom>
-          Our Services
-        </Typography>
-        <Typography variant="h6" component="p" align="center" color="text.secondary" paragraph>
-          Here are some of the ways we offer peace of mind to property owners.
-        </Typography>
-        <Grid container spacing={3}>
-          {serviceList.map((service, index) => (
-            <Grid item xs={12} sm={4} key={index}>
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Card sx={{ minWidth: 275, height: '100%', cursor: 'default', userSelect: 'none' }}>
-                  <CardContent>
-                    {service.icon}
-                    <Typography variant="h5" component="div" gutterBottom>
-                      {service.title}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      {service.description}
-                    </Typography>
-                  </CardContent>
-                  <Button variant="contained" sx={{ mx: 2, my: 2 }}>Learn More</Button>
-                </Card>
-              </motion.div>
-            </Grid>
-          ))}
         </Grid>
       </Container>
       
