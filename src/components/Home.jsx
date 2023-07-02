@@ -2,6 +2,8 @@ import React from 'react';
 import { Box, Typography, Button, Container, Card, CardContent, Grid, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
 import { styled } from '@mui/system';
 import { motion, AnimatePresence } from "framer-motion";
+import ImageGallery from 'react-image-gallery';
+import "react-image-gallery/styles/css/image-gallery.css";
 
 import CommentIcon from '@mui/icons-material/Comment';
 import StarIcon from '@mui/icons-material/Star';
@@ -13,6 +15,8 @@ import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import BusinessIcon from '@mui/icons-material/Business';
 import VolumeOffIcon from '@mui/icons-material/VolumeOff';
 import { green } from '@mui/material/colors';
+import { useInView } from 'react-intersection-observer';
+import Typist from 'react-typist';
 
 
 
@@ -106,6 +110,18 @@ const serviceList = [
   },
 ];
 
+const images = [
+  {
+    original: 'https://a0.muscache.com/im/pictures/miso/Hosting-756042222497511873/original/c953a450-7ac5-4a3f-b2b9-cc65f7bb8663.jpeg?im_w=720',
+    thumbnail: 'https://a0.muscache.com/im/pictures/miso/Hosting-756042222497511873/original/c953a450-7ac5-4a3f-b2b9-cc65f7bb8663.jpeg?im_w=720',
+  },
+  {
+    original: 'https://a0.muscache.com/im/pictures/e1a47e0a-5c72-482c-8057-bbc3cd054cc7.jpg?im_w=1200',
+    thumbnail: 'https://a0.muscache.com/im/pictures/e1a47e0a-5c72-482c-8057-bbc3cd054cc7.jpg?im_w=1200',
+  },
+  // more images...
+];
+
 const useTypewriterEffect = (text, delay = 2000) => {
   const [visibleText, setVisibleText] = React.useState('');
 
@@ -125,6 +141,7 @@ const useTypewriterEffect = (text, delay = 2000) => {
 
   return visibleText;
 };
+
 
 // Add your FAQs here
 const faqs = [
@@ -155,9 +172,15 @@ const faqs = [
   
 ];
 
+
+
 const Home = () => {
   const tagline = "Providing hassle-free long-term leases for property owners.";
   const visibleTagline = useTypewriterEffect(tagline, 4000); // duration in milliseconds
+
+  const [searchValue, setSearchValue] = React.useState('');
+
+  
 
   return (
     <div>
@@ -170,38 +193,40 @@ const Home = () => {
       >
         <Background />
         <Banner display="flex" alignItems="center">
-          <Container maxWidth="sm">
-            <motion.div initial={{ y: -100, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 1 }}>
-              <motion.div initial={{ scale: 0.5 }} animate={{ scale: 1 }} transition={{ duration: 2 }}>
-                <Typography 
-                  variant="h2" 
-                  color="inherit" 
-                  gutterBottom
-                  sx={{
-                    textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)'
-                  }}
-                >
-                  Sovereign Horizon Homes
-                </Typography>
-              </motion.div>
-        <div className="typewriter">
-              <AnimatePresence>
-                {visibleTagline.split('').map((char, i) => (
-                  <motion.span
-                    key={i}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: i * 0.00004 }} // adjust the delay factor as needed
-                  >
-                    {char}
-                  </motion.span>
-                ))}
-              </AnimatePresence>
-            </div>
-            <Button variant="contained">Learn more</Button>
-          </motion.div>
-    </Container>
-  </Banner>
+  <Container maxWidth="sm">
+    <motion.div initial={{ y: -100, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 1 }}>
+      <motion.div initial={{ scale: 1 }} animate={{ scale: 1 }} transition={{ duration: 2 }}>
+        <Typography 
+          variant="h2" 
+          color="inherit" 
+          gutterBottom
+          sx={{
+            textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)'
+          }}
+        >
+          PLE
+          <img src="https://logodownload.org/wp-content/uploads/2017/06/bitcoin-logo-7-1.png" alt="Bitcoin Icon" width={'42px'} paddingBottom='20px'/> Cave
+        </Typography>
+        <Typography 
+          variant="h4" 
+          color="inherit" 
+          gutterBottom
+          sx={{
+            textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)'
+          }}
+        >
+          by Sovereign Horizon
+        </Typography>
+      </motion.div>
+      <div className='typist-text'>
+      <Typist startDelay='800' avgTypingDelay={5} cursor={{ show: true, blink: true, hideWhenDone: true }} >
+        Providing hassle-free long-term leases for property owners.
+      </Typist>
+      </div>
+      <Button variant='contained' >Work with us</Button>
+    </motion.div>
+  </Container>
+</Banner>
       </StyledParallax>
             
       
@@ -276,7 +301,7 @@ const Home = () => {
                   5/5 Star Rating
                   </Typography>
                   <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                    Top-rated by 95% of guests
+                    by 95% of guests
                   </Typography>
                   </Box>
                 </CardContent>
@@ -303,27 +328,46 @@ const Home = () => {
           </Grid>
         </Grid>
       </Container>
-      
       <Container maxWidth="md" sx={{ my: 5 }}>
-        <Typography variant="h4" component="h1" align="center" gutterBottom>
-          Frequently Asked Questions
-        </Typography>
-        <Typography variant="h6" component="p" align="center" color="text.secondary" paragraph>
-          Some of the most common questions we get asked.
-        </Typography>
-        <div>
-          {faqs.map((faq, index) => (
+  <Typography variant="h4" component="h1" align="center" gutterBottom>
+    Property Gallery
+  </Typography>
+  <Typography variant="h6" component="p" align="center" color="text.secondary" paragraph>
+    Here are some of the properties we manage.
+  </Typography>
+  <ImageGallery items={images} />
+</Container>
+       <Container maxWidth="md" sx={{ my: 5 }}>
+      <Typography variant="h4" component="h1" align="center" gutterBottom>
+        Frequently Asked Questions
+      </Typography>
+
+      <input 
+        type="text" 
+        placeholder="Search FAQs..." 
+        value={searchValue} 
+        onChange={(e) => setSearchValue(e.target.value)} 
+      />
+
+      {
+        faqs
+          .filter(faq => 
+            faq.question.toLowerCase().includes(searchValue.toLowerCase())
+          )
+          .map((faq, index) => (
             <Accordion key={index}>
               <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                 <Typography>{faq.question}</Typography>
               </AccordionSummary>
               <AccordionDetails>
-                <Typography>{faq.answer}</Typography>
+                <Typography>
+                  {faq.answer}
+                </Typography>
               </AccordionDetails>
             </Accordion>
-          ))}
-        </div>
-      </Container>
+          ))
+      }
+    </Container>
     </div>
   );
 };
