@@ -29,6 +29,7 @@
     "react-scroll-progress-bar": "^1.1.13",
     "react-typewriter-hook": "^1.0.1",
     "react-typist": "^2.0.5",
+    "styled-components": "^6.0.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

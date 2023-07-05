@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Typography, Button, Container, Card, CardContent, Grid, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
 import { styled } from '@mui/system';
+import stylish from 'styled-components';
 import { motion, AnimatePresence } from "framer-motion";
 import ImageGallery from 'react-image-gallery';
 import "react-image-gallery/styles/css/image-gallery.css";
@@ -12,11 +13,13 @@ import NoMeetingRoomIcon from '@mui/icons-material/NoMeetingRoom';
 import CleanHandsIcon from '@mui/icons-material/CleanHands';
 import TimerIcon from '@mui/icons-material/Timer';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import CurrencyBitcoinIcon from '@mui/icons-material/CurrencyBitcoin';
 import BusinessIcon from '@mui/icons-material/Business';
 import VolumeOffIcon from '@mui/icons-material/VolumeOff';
 import { green } from '@mui/material/colors';
 import { useInView } from 'react-intersection-observer';
 import Typist from 'react-typist';
+import SovereignLogo from '../assets/Asset_5.png';
 
 
 
@@ -25,6 +28,25 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Parallax } from 'react-parallax';
 
 import ScrollProgressBar from 'react-scroll-progress-bar';
+
+const CustomButton = stylish.button`  display: inline-block;
+font-size: 10px;
+text-transform: uppercase;
+letter-spacing: 1.5px;
+color: white;
+background-color: #000;
+border: none;
+cursor: pointer;
+padding: 12px 24px;
+transition: all 0.3s ease;
+border-radius: 25px;
+box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+margin: 4px 2px;
+:hover {
+  background-color: #45a049;
+  box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+  color: white;
+  transform: translateY(-7px);`;
 
 const Background = styled('div')({
   position: 'absolute',
@@ -92,9 +114,9 @@ const serviceList = [
     title: "Fair Pay",
     description: "We pay competively to market rates and pay in hard currency. No low-balling, no inflation headache.",
     icon: (
-      <Box display='flex' alignItems='center' justifyContent='center'>
+      <Box display='flex' alignItems='center' justifyContent='center' gap='-10px'>
         <AttachMoneyIcon fontSize="large" sx={{ color: green[500] }} />
-        <BitcoinIcon width='21px' />
+        <CurrencyBitcoinIcon fontSize='large' sx={{ color: '#f7931a' }}/>
       </Box>
     ),
   },
@@ -196,31 +218,61 @@ const Home = () => {
   <Container maxWidth="sm">
     <motion.div initial={{ y: -100, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 1 }}>
       <motion.div initial={{ scale: 1 }} animate={{ scale: 1 }} transition={{ duration: 2 }}>
+        <Box display={'flex'} flexDirection={'row'} marginBottom={'-30px'}>
         <Typography 
           variant="h2" 
           color="inherit" 
           gutterBottom
           sx={{
-            textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)'
+            textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)',
           }}
         >
-          PLE
-          <img src="https://logodownload.org/wp-content/uploads/2017/06/bitcoin-logo-7-1.png" alt="Bitcoin Icon" width={'42px'} paddingBottom='20px'/> Cave
+        PLE
         </Typography>
         <Typography 
-          variant="h4" 
+          variant="h2" 
           color="inherit" 
           gutterBottom
           sx={{
-            textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)'
+            textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)',
+            paddingTop: '6px',
+            marginRight: '10px',
           }}
         >
-          by Sovereign Horizon
+          <img src="https://logodownload.org/wp-content/uploads/2017/06/bitcoin-logo-7-1.png" alt="Bitcoin Icon" className='shadowedPNG' width={'42px'} paddingBottom='20px'/>
         </Typography>
+        <Typography 
+          variant="h2" 
+          color="inherit" 
+          gutterBottom
+          sx={{
+            textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)',
+            marginBottom: '-10px'
+          }}
+        >
+        Cave
+        </Typography>
+        </Box>
+        <Box display={'flex'} flexDirection={'row'} marginBottom={'20px'}>
+        <Typography 
+          variant="h5" 
+          color="inherit" 
+          gutterBottom
+          sx={{
+            textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)',
+            marginRight: '10px',
+
+          }}
+        >
+          by 
+        </Typography>
+        
+        <img src={SovereignLogo} className='shadowedPNG' width='100px' paddingTop='30px' alt="React Logo" />
+        </Box>
       </motion.div>
       <div className='typist-text'>
-      <Typist startDelay='800' avgTypingDelay={5} cursor={{ show: true, blink: true, hideWhenDone: true }} >
-        Providing hassle-free long-term leases for property owners.
+      <Typist className='typist-text' textShadow='2px 2px 4px rgba(0, 0, 0, 0.7)' startDelay='800' avgTypingDelay={5} cursor={{ show: true, blink: true, hideWhenDone: true }} >
+        Providing hassle-free long-term leases for property owners and a home for professional travelers.
       </Typist>
       </div>
       <Button variant='contained' >Work with us</Button>
@@ -242,10 +294,10 @@ const Home = () => {
           {serviceList.map((service, index) => (
             <Grid item xs={12} sm={4} key={index}>
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Card sx={{ minWidth: 275, height: '100%', cursor: 'default', userSelect: 'none' }}>
+                <Card sx={{ minWidth: 275, cursor: 'default', userSelect: 'none' }}>
                   
                   <CardContent>
-                  <Box display = 'flex' flexDirection = 'column' justifyContent = 'center' alignItems = 'center' >
+                  <Box height='200px' display = 'flex' flexDirection = 'column' justifyContent = 'space-between' alignItems = 'center' >
                     {service.icon}
                     <Typography variant="h5" component="div" gutterBottom>
                       {service.title}
@@ -253,7 +305,7 @@ const Home = () => {
                     <Typography align = 'center' variant="body2" color="text.secondary">
                       {service.description}
                     </Typography>
-                    <Button variant="contained" sx={{ mx: 2, my: 2 }}>Learn More</Button>
+                    <CustomButton>click to learn more</CustomButton>
                     </Box>
                   </CardContent>
                 </Card>

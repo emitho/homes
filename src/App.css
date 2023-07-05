@@ -15,7 +15,7 @@
 
 .typist-text {
   font-size: 18px;
-  text-shadow: '4px 4px 6px rgba(0, 0, 0, 0.5';
+  text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.8);
   margin-bottom: 2vh;
 }
 
@@ -29,6 +29,8 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+
+.
 
 .App-link {
   color: #61dafb;
@@ -61,4 +63,8 @@
   animation: 
     typewriter 4s steps(44, end),
     blink-caret .5s step-end infinite;
+}
+
+.shadowedPNG {
+  filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.7));
 }
