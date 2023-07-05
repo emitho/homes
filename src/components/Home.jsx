@@ -5,6 +5,8 @@ import stylish from 'styled-components';
 import { motion, AnimatePresence } from "framer-motion";
 import ImageGallery from 'react-image-gallery';
 import "react-image-gallery/styles/css/image-gallery.css";
+import { ParallaxProvider } from 'react-scroll-parallax';
+
 
 import CommentIcon from '@mui/icons-material/Comment';
 import StarIcon from '@mui/icons-material/Star';
@@ -20,14 +22,19 @@ import { green } from '@mui/material/colors';
 import { useInView } from 'react-intersection-observer';
 import Typist from 'react-typist';
 import SovereignLogo from '../assets/Asset_5.png';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import { useState, useEffect } from 'react';
+
 
 
 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-import { Parallax } from 'react-parallax';
+import { Parallax as ParallaxScroll } from 'react-scroll-parallax';
+import { Parallax as ParallaxReact } from 'react-parallax';
 
 import ScrollProgressBar from 'react-scroll-progress-bar';
+import { ChevronRight } from '@mui/icons-material';
 
 const CustomButton = stylish.button`  display: inline-block;
 font-size: 10px;
@@ -66,10 +73,68 @@ const Background = styled('div')({
   },
 });
 
-const StyledParallax = styled(Parallax)({
+const StyledParallax = styled(ParallaxReact)({
   position: 'relative',
   height: '90vh',
 });
+
+const reviews = [
+  {
+    image: 'https://a0.muscache.com/im/pictures/user/5b0f9512-0212-48d3-b43f-065d2c854f31.jpg?im_w=240',
+    name: 'Derek',
+    review: `"...Fantastic location and the host was very helpful and great at responding to any queries."`
+  },
+  {
+    image: 'https://a0.muscache.com/im/pictures/user/b3f8bfc2-1e09-4723-b2bb-81b2fd691e50.jpg?im_w=240',
+    name: 'Maura',
+    review: `"Phenomenal location! very easy check in and check out."`,
+  },
+  // and so on for the other properties
+];
+
+
+
+
+const PropertyGallery = () => {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 5000); // change image every 5 seconds
+
+    return () => {
+      clearInterval(timer);
+    };
+  }, []);
+
+  const variants = {
+    hidden: { opacity: 0, x: 100, scale: 0.85 },
+    visible: { opacity: 1, x: 0, scale: 1 },
+    exit: { opacity: 0, x: -100, scale: 0.85 },
+  };
+
+  return (
+    <Container maxWidth="md" sx={{ my: 5 }}>
+      <ParallaxProvider>
+<AnimatePresence mode="wait">
+          <motion.div key={currentImageIndex} initial="hidden" animate="visible" exit="exit" variants={variants} transition={{ duration: 1 }}>
+          <ParallaxScroll strength={500}>
+    <img src={images[currentImageIndex].original} style={{ width: '100%' }} alt="Property"/>
+</ParallaxScroll>
+          <div style={{ position: 'relative', width: '80%', textAlign: 'center', padding: '10px' }}>
+            <Typography variant="h6">{reviews[currentImageIndex]?.review}</Typography>
+            <img src={reviews[currentImageIndex]?.image} alt={reviews[currentImageIndex]?.name} style={{width: '50px', height: '50px', borderRadius: '50%'}}/>
+            <Typography variant="subtitle2">{reviews[currentImageIndex]?.name}</Typography>
+          </div>
+        </motion.div>
+      </AnimatePresence>
+      </ParallaxProvider>
+    </Container>
+  );
+};
+
+
 
 const BitcoinIcon = (props) => (
   <img src="https://logodownload.org/wp-content/uploads/2017/06/bitcoin-logo-7-1.png" alt="Bitcoin Icon" {...props} />
@@ -227,7 +292,7 @@ const Home = () => {
             textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)',
           }}
         >
-        PLE
+        Casa de la Ple
         </Typography>
         <Typography 
           variant="h2" 
@@ -236,10 +301,11 @@ const Home = () => {
           sx={{
             textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)',
             paddingTop: '6px',
-            marginRight: '10px',
+            marginRight: '1px',
+            marginLeft: '-4px'
           }}
         >
-          <img src="https://logodownload.org/wp-content/uploads/2017/06/bitcoin-logo-7-1.png" alt="Bitcoin Icon" className='shadowedPNG' width={'42px'} paddingBottom='20px'/>
+          <img src="https://logodownload.org/wp-content/uploads/2017/06/bitcoin-logo-7-1.png" alt="Bitcoin Icon" className='shadowedPNG bitcoinSymbol' width={'34px'}  paddingBottom='20px'/>
         </Typography>
         <Typography 
           variant="h2" 
@@ -250,7 +316,7 @@ const Home = () => {
             marginBottom: '-10px'
           }}
         >
-        Cave
+        e
         </Typography>
         </Box>
         <Box display={'flex'} flexDirection={'row'} marginBottom={'20px'}>
@@ -270,13 +336,25 @@ const Home = () => {
         <img src={SovereignLogo} className='shadowedPNG' width='100px' paddingTop='30px' alt="React Logo" />
         </Box>
       </motion.div>
+      </motion.div>
       <div className='typist-text'>
-      <Typist className='typist-text' textShadow='2px 2px 4px rgba(0, 0, 0, 0.7)' startDelay='800' avgTypingDelay={5} cursor={{ show: true, blink: true, hideWhenDone: true }} >
-        Providing hassle-free long-term leases for property owners and a home for professional travelers.
-      </Typist>
-      </div>
-      <Button variant='contained' >Work with us</Button>
-    </motion.div>
+  <Typist 
+    className='typist-text' 
+    textShadow='2px 2px 4px rgba(0, 0, 0, 0.7)' 
+    startDelay='900' 
+    avgTypingDelay={5} 
+    cursor={{ show: true, blink: true, hideWhenDone: true }}
+  >
+    Hassle-free long-term leases for property owners.
+    <Typist.Backspace count={59} delay={2000} />
+    A home for the professional and perpetual traveler.
+    <Typist.Backspace count={55} delay={2000} />
+    <CustomButton> <Box display='flex' gap='3px'>Let's go <ChevronRightIcon fontSize='24px' sx={{ color: '#f7931a' }}/> </Box></CustomButton>
+  </Typist>
+</div>
+
+      
+    
   </Container>
 </Banner>
       </StyledParallax>
@@ -387,7 +465,7 @@ const Home = () => {
   <Typography variant="h6" component="p" align="center" color="text.secondary" paragraph>
     Here are some of the properties we manage.
   </Typography>
-  <ImageGallery items={images} />
+  <PropertyGallery items={images}/>
 </Container>
        <Container maxWidth="md" sx={{ my: 5 }}>
       <Typography variant="h4" component="h1" align="center" gutterBottom>
