@@ -6,6 +6,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import ImageGallery from 'react-image-gallery';
 import "react-image-gallery/styles/css/image-gallery.css";
 import { ParallaxProvider } from 'react-scroll-parallax';
+import Modal from 'react-modal';
+
 
 
 import CommentIcon from '@mui/icons-material/Comment';
@@ -101,7 +103,7 @@ const PropertyGallery = () => {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 5000); // change image every 5 seconds
+    }, 6000); // change image every 5 seconds
 
     return () => {
       clearInterval(timer);
